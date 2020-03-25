@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="mod">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../../jaxb/mod" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/../../jaxb/mod" recursive="false" />
+  </library>
+</component>

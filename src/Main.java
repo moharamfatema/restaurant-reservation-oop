@@ -18,7 +18,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        //new GUI().display(primaryStage);
+        new GUI().display(primaryStage);
         JAXBContext jaxbcontext= newInstance(Restaurant.class);
         Unmarshaller unmarshaller= jaxbcontext.createUnmarshaller();
         Restaurant restaurant= (Restaurant) unmarshaller.unmarshal(new File("input.xml"));

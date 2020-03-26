@@ -26,31 +26,9 @@ public class GUI{
     Restaurant restaurant;
     public void display(Stage primaryStage) throws  JAXBException{
         initializeXml();
-        loginWindow(primaryStage);
+        LoginWindow.display();
     }
 
-    public void loginWindow(Stage stage) {
-        TextField uslabel = new TextField();
-        TextField paslabel =new TextField();
-        Button login = new Button();
-        login.setText("login");
-        login.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println();
-            }});
-        uslabel.setAlignment(Pos.BASELINE_CENTER);
-        paslabel.setAlignment(Pos.BOTTOM_CENTER);
-        login.setAlignment(Pos.BASELINE_RIGHT);
-        var root = new HBox();
-        root.getChildren().addAll(login,uslabel,paslabel);
-        root.setPadding(new Insets(25));
-        var scene = new Scene(root, 280, 200);
-
-        stage.setTitle("login");
-        stage.setScene(scene);
-        stage.show();
-    }
 
     public void login1(String usname, String password){
         Users us = restaurant.getUsers();
@@ -60,20 +38,20 @@ public class GUI{
                 System.out.println(usname+password);
                 switch (role.toLowerCase()) {
                     case "manager":
-                        managerWindow();
+                        ManagerWindow.display();
                 }
             }
         }
     }
 
-    private void managerWindow() {
-        System.out.println("hi");
-    }
-
     public void initializeXml() throws JAXBException {
         JAXBContext jaxbcontext = newInstance(Restaurant.class);
         Unmarshaller unmarshaller = jaxbcontext.createUnmarshaller();
-        restaurant = (Restaurant) unmarshaller.unmarshal(new File("C:\\Users\\user\\IdeaProjects\\progproject2\\src\\pack\\input.xml"));
+        try {
+            restaurant = (Restaurant) unmarshaller.unmarshal(new File("input.xml"));
+        }catch (Exception e){
+            AlertBox.display("Error","File not found!");
+        }
     }
 }
 

@@ -3,6 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="3e0e33db-5b6e-43ee-a8d2-04f335fd42c1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/GUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Model.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,11 +16,20 @@
   <component name="FavoritesManager">
     <favorites_list name="JavaFxApplication" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1Zdr3Os4LoOgQs45czaF6YvmhUU" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -106,22 +119,22 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="473" y="176" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1585179989204" />
-    <state width="1493" height="223" key="GridCell.Tab.0.bottom" timestamp="1585180156344">
+    <state width="1493" height="223" key="GridCell.Tab.0.bottom" timestamp="1585181317517">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="223" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1585180156344" />
-    <state width="1493" height="223" key="GridCell.Tab.0.center" timestamp="1585180156344">
+    <state width="1493" height="223" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1585181317517" />
+    <state width="1493" height="223" key="GridCell.Tab.0.center" timestamp="1585181317517">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="223" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1585180156344" />
-    <state width="1493" height="223" key="GridCell.Tab.0.left" timestamp="1585180156344">
+    <state width="1493" height="223" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1585181317517" />
+    <state width="1493" height="223" key="GridCell.Tab.0.left" timestamp="1585181317516">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="223" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1585180156344" />
-    <state width="1493" height="223" key="GridCell.Tab.0.right" timestamp="1585180156344">
+    <state width="1493" height="223" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1585181317516" />
+    <state width="1493" height="223" key="GridCell.Tab.0.right" timestamp="1585181317517">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="223" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1585180156344" />
+    <state width="1493" height="223" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1585181317517" />
     <state x="439" y="136" key="NewModule_or_Project.wizard" timestamp="1585179489543">
       <screen x="0" y="0" width="1536" height="864" />
     </state>

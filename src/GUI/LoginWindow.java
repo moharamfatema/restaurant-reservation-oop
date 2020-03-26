@@ -1,5 +1,5 @@
 package GUI;
-
+import model.Controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -13,6 +13,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+import javax.xml.bind.JAXBException;
+
 public class LoginWindow {
     private static Stage stage = new Stage();
     private static GridPane pane = new GridPane();
@@ -25,7 +27,13 @@ public class LoginWindow {
     public static void display()
     {
         init();
-        login.setOnAction(event -> System.out.println());
+        login.setOnAction(e -> {
+            try {
+                Controller.loginAction(userField.getText(),passField.getText());
+            } catch (JAXBException ex) {
+                ex.printStackTrace();
+            }
+        });
         cancel.setOnAction(e->handleCancelButton());
         stage.show();
     }

@@ -1,5 +1,5 @@
 package GUI;
-
+import model.Controller;
 import Data.Restaurant;
 import Data.User;
 import Data.Users;
@@ -23,14 +23,12 @@ import static javax.xml.bind.JAXBContext.newInstance;
 
 
 public class GUI{
-    Restaurant restaurant;
-    public void display(Stage primaryStage) throws  JAXBException{
-        initializeXml();
+    public static void display(Stage primaryStage) throws  JAXBException{
         LoginWindow.display();
     }
 
 
-    public void login1(String usname, String password){
+    /*public static void login1(String usname, String password){
         Users us = restaurant.getUsers();
         for (User user : us.getUsers()) {
             if ((usname.compareToIgnoreCase(user.getName()) == 0) && password.compareToIgnoreCase(user.getPassword()) == 0) {
@@ -42,16 +40,8 @@ public class GUI{
                 }
             }
         }
-    }
+    }*/
 
-    public void initializeXml() throws JAXBException {
-        JAXBContext jaxbcontext = newInstance(Restaurant.class);
-        Unmarshaller unmarshaller = jaxbcontext.createUnmarshaller();
-        try {
-            restaurant = (Restaurant) unmarshaller.unmarshal(new File("input.xml"));
-        }catch (Exception e){
-            AlertBox.display("Error","File not found!");
-        }
-    }
+
 }
 

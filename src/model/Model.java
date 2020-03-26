@@ -1,7 +1,7 @@
 package model;
 
-public class Model {
-    public static void LoadUser(String username){
+import Data.User;
 
-    }
+public class Model {
+
 }

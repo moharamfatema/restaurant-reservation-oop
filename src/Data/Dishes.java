@@ -1,5 +1,8 @@
 package Data;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -10,13 +13,13 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Dishes {
     @XmlElement(name= "dish")
-    private List<Dish> dishes;
+    private ObservableList<Dish> dishes = FXCollections.observableArrayList();
 
-    public List<Dish> getDishes() {
+    public ObservableList<Dish> getDishes() {
         return dishes;
     }
 
-    public void setDishes(List<Dish> dishes) {
+    public void setDishes(ObservableList<Dish> dishes) {
         this.dishes = dishes;
     }
 }

@@ -16,29 +16,26 @@ import javafx.stage.Stage;
 import javax.xml.bind.JAXBException;
 
 public class LoginWindow {
-    private static Stage stage = new Stage();
+    private static Scene scene;
     private static GridPane pane = new GridPane();
     private static Label userLabel = new Label("Username: ");
     private static Label passLabel = new Label("Password: ");
     private static TextField userField = new TextField();
     private static PasswordField passField =new PasswordField();
     private static Button login = new Button();
-    private static Button cancel = new Button("Cancel");
-    public static void display()
+    public static Scene display(Stage stage)
     {
         init();
         login.setOnAction(e -> {
             try {
-                Controller.loginAction(userField.getText(),passField.getText());
+                Controller.loadUser(userField.getText(),passField.getText(),stage);
             } catch (JAXBException ex) {
                 ex.printStackTrace();
             }
         });
-        cancel.setOnAction(e->handleCancelButton());
-        stage.show();
+        return scene;
     }
     private static void init(){
-        stage.setTitle("Login");
         pane.setPadding(new Insets(10,10,10,10));
         pane.setVgap(10);
         pane.setHgap(20);
@@ -53,21 +50,9 @@ public class LoginWindow {
 
         login.setText("Login");
         GridPane.setConstraints(login,1,2);
-        GridPane.setConstraints(cancel,1,3);
 
-        pane.getChildren().addAll(userLabel,userField,passLabel,passField,cancel,login);
+        pane.getChildren().addAll(userLabel,userField,passLabel,passField,login);
 
-        Scene scene = new Scene(pane, 350, 150);
-        stage.setScene(scene);
-
-        stage.setOnCloseRequest(e->{
-            e.consume();
-            handleCancelButton();
-        });
-    }
-
-    private static void handleCancelButton(){
-        if(ConfirmBox.display("Cancel","Are you sure you want to cancel?"))
-            stage.close();
+        scene = new Scene(pane, 350, 150);
     }
 }

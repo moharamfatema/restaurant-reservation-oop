@@ -23,25 +23,20 @@ import static javax.xml.bind.JAXBContext.newInstance;
 
 
 public class GUI{
+    //public static Stage ;
     public static void display(Stage primaryStage) throws  JAXBException{
-        LoginWindow.display();
+        primaryStage.setOnCloseRequest(e->{
+            e.consume();
+            handleCancelButton(primaryStage);
+        });
+        primaryStage.setTitle("Welcome to our restaurant");
+        primaryStage.setScene(LoginWindow.display(primaryStage));
+        primaryStage.show();
+
     }
-
-
-    /*public static void login1(String usname, String password){
-        Users us = restaurant.getUsers();
-        for (User user : us.getUsers()) {
-            if ((usname.compareToIgnoreCase(user.getName()) == 0) && password.compareToIgnoreCase(user.getPassword()) == 0) {
-                String role = user.getRole();
-                System.out.println(usname+password);
-                switch (role.toLowerCase()) {
-                    case "manager":
-                        ManagerWindow.display();
-                }
-            }
-        }
-    }*/
-
-
+    static void handleCancelButton(Stage stage) {
+        if (ConfirmBox.display("Cancel", "Are you sure you want to cancel?"))
+            stage.close();
+    }
 }
 

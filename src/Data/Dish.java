@@ -38,4 +38,8 @@ public class Dish {
     public void setType(String type) {
         this.type = type;
     }
+
+    public String toString(){
+        return String.format("%s   \tType: %s   \tPrice: %sL.E",name,type,String.valueOf(price));
+    }
 }

@@ -1,0 +1,57 @@
+static Model model = new Model();
+    public static Restaurant restaurant;
+    public  static User currentUser;
+    public  static void loadUser(String username, String password,Stage stage) throws JAXBException {
+        //TODO: implement to search in users
+        restaurant = model.initializeXml();
+        Collection<User> users= restaurant.getUsers().getUsers();
+        for (User x : users){
+            if (username.equals(x.getUsername())){
+                currentUser = x;
+                if (!password.equals(currentUser.getPassword())){
+                    AlertBox.display("Wrong password","The password you entered is incorrect.");
+                    return;
+                }else
+                    switch (currentUser.getRole()){
+                        case "Manager":
+                            //View.dashboard = ManagerWindow.display(currentUser);
+                            break;
+                        case "Cooker":
+
+                            break;
+                        case "Waiter":
+
+                            break;
+                        case "Client":
+                            stage.setScene(ClientWindow.initial());
+                    }
+                    return;
+            }
+        }AlertBox.display("User not found","You entered a wrong username");
+    }
+    public class Model {
+        static Reservations reservations = new Reservations();
+        public static Restaurant restaurant;
+        public static User currentUser;
+
+        static void saveReservations() throws JAXBException {
+            JAXBContext parser = JAXBContext.newInstance(Reservations.class);
+            Marshaller marshaller = parser.createMarshaller();
+            try {
+                marshaller.marshal(reservations,new File("Reservations.xml"));
+            }catch (Exception e){
+                AlertBox.display("Save","Couldn't save reservations");
+            }
+        }static void loadReservations() throws JAXBException {
+            JAXBContext parser = JAXBContext.newInstance(Reservations.class);
+            Unmarshaller unmarshaller = parser.createUnmarshaller();
+            try {
+                reservations = (Reservations)unmarshaller.unmarshal(new File("Reservations.xml"));
+            }catch (Exception e){
+                AlertBox.display("Error","couldn't load reservations.");
+            }
+
+
+        }
+        public
+    }

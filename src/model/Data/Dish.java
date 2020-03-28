@@ -1,4 +1,4 @@
-package Data;
+package model.Data;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -14,6 +14,16 @@ public class Dish {
     private double price;
     @XmlElement(name="type")
     private String type;
+    @XmlElement(name = "quantity")
+    private int quantity;
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 
     public String getName() {
         return name;

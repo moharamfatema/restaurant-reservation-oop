@@ -1,52 +1,21 @@
 package model;
 
-import Data.Reservations;
-import Data.Restaurant;
-import Data.User;
-import GUI.AlertBox;
+import model.Data.*;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-import java.io.File;
+import java.util.List;
 
-import static javax.xml.bind.JAXBContext.newInstance;
+public interface Model {
 
-public class Model {
-    static Reservations reservations = new Reservations();
-    public static Restaurant restaurant;
-    public static User currentUser;
+    /*Client methods*/
+    boolean findTable(Tables tables,int seats,boolean smoking);
+    void order(List<Dish> dishList,List<Dish> allDishes);
+    Reservation addReservation(String name,double bill,int tablenumber,List<Dish> orderedDishes);
 
-    static void saveReservations() throws JAXBException {
-        JAXBContext parser = JAXBContext.newInstance(Reservations.class);
-        Marshaller marshaller = parser.createMarshaller();
-        try {
-            marshaller.marshal(reservations,new File("Reservations.xml"));
-        }catch (Exception e){
-            AlertBox.display("Save","Couldn't save reservations");
-        }
-    }static void loadReservations() throws JAXBException {
-        JAXBContext parser = JAXBContext.newInstance(Reservations.class);
-        Unmarshaller unmarshaller = parser.createUnmarshaller();
-        try {
-            reservations = (Reservations)unmarshaller.unmarshal(new File("Reservations.xml"));
-        }catch (Exception e){
-            AlertBox.display("Error","couldn't load reservations.");
-        }
+    /*Waiter methods*/
 
+    /*Cook methods*/
 
-    }
-    public static Restaurant initializeXml() throws JAXBException {
-        JAXBContext jaxbcontext = newInstance(Restaurant.class);
-        Unmarshaller unmarshaller = jaxbcontext.createUnmarshaller();
-        Restaurant restaurant = new Restaurant();
-        try {
-            restaurant = (Restaurant) unmarshaller.unmarshal(new File("input.xml"));
-        }catch (Exception e){
-            AlertBox.display("Error","File not found!");
-        }
-        return restaurant;
-    }
+    /*Manager methods*/
+
 
 }

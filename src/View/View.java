@@ -23,6 +23,7 @@ public class View {
 
     private Label label1;
     private Label label2;
+    private Label billLabel = new Label("Bill = 0 L.E");
 
     private Button next;
     private Button add;
@@ -95,28 +96,32 @@ public class View {
         delete = new Button("Delete");
         GridPane.setConstraints(delete,1,2);
 
+        next =new Button("Confirm Order");
+        GridPane.setConstraints(next,2,2);
+
         tableView = new TableView<>();
         tableView.setMinWidth(100);
-
-        next = new Button("Order");
-        GridPane.setConstraints(next,0,1);
 
          TableColumn<Dish,String> column4;
          TableColumn<Dish,Double> doubleColumn3;
          TableColumn<Dish,String> column2;
          TableColumn<Dish,String> column1;
+
         //Name column
         column1 = new TableColumn<>("Name");
         column1.setCellValueFactory(new PropertyValueFactory<>("name"));
         column1.setMinWidth(100);
+
         //Type column
         column2 = new TableColumn<>("Type");
         column2.setCellValueFactory(new PropertyValueFactory<>("type"));
         column2.setMinWidth(20);
+
         //Price column
         doubleColumn3 = new TableColumn<>("Unit Price");
         doubleColumn3.setCellValueFactory(new PropertyValueFactory<>("price"));
         doubleColumn3.setMinWidth(20);
+
         //Quantity column
         column4 = new TableColumn<>("Quantity");
         column4.setCellValueFactory(new PropertyValueFactory<>("quantity"));
@@ -124,8 +129,8 @@ public class View {
 
         tableView.getColumns().addAll(column1, column2, doubleColumn3, column4);
 
-        pane.getChildren().addAll(label1,choiceBox,label2,input,add,delete);
-        vBox.getChildren().addAll(pane,tableView);
+        pane.getChildren().addAll(label1,choiceBox,label2,input,add,delete,next);
+        vBox.getChildren().addAll(pane,tableView,billLabel);
 
         return new Scene(vBox,500,500);
     }

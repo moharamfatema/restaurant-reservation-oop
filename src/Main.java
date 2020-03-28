@@ -44,7 +44,7 @@ public class Main extends Application {
         });
         stage.setOnCloseRequest(e->handleCloseButton());
         //login();
-        stage.setScene(view.showReservations());
+        stage.setScene(view.menu());
         stage.show();
     }
 

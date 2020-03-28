@@ -15,7 +15,7 @@ public class Reservations {
     @XmlElement(name = "totalmoney")
     int totalmoney;
 
-    public Collection<Reservation> getData() {
+    public List<Reservation> getData() {
         return data;
     }
 

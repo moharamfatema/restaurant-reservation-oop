@@ -15,7 +15,6 @@ import View.*;
 
 import javax.xml.bind.*;
 import java.io.File;
-import java.util.List;
 
 import static javax.xml.bind.JAXBContext.newInstance;
 
@@ -29,13 +28,23 @@ public class Main extends Application {
     View view = new View();
 
     Files inputpath = Files.INPUT;
+    Files reservationsPath = Files.RESERVATIONS;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         stage = primaryStage;
         initializeXML();
-        stage.setScene(view.login());
-        view.getNext().setOnAction(e->handleLoginButton(view.getInput().getText(),view.getPassField().getText()));
+        view.getLogout().setOnAction(e->{
+            try {
+                model.save(reservations, reservationsPath.getPath());
+            } catch (JAXBException ex) {
+                AlertBox.display("Error","Couldn't save reservation data.");
+            }
+            login();
+        });
+        stage.setOnCloseRequest(e->handleCloseButton());
+        //login();
+        stage.setScene(view.showReservations());
         stage.show();
     }
 
@@ -70,10 +79,7 @@ public class Main extends Application {
                             break;
                         case "Client":
                             model = new Client();
-                            view.getNext().setOnAction(e->{
-                                stage.setScene(view.findTable());
-                                findTable();
-                            });
+                            view.getNext().setOnAction(e->findTable());
                     }
                 return;
             }
@@ -81,7 +87,8 @@ public class Main extends Application {
     }
     void findTable(){
         view.getNext().setOnAction(e-> handleFindTable(view.getInput().getText(),view.getCheckBox().isSelected()));
-        view.getBack().setOnAction(e->stage.setScene(view.login()));
+        view.getBack().setOnAction(e->login());
+        stage.setScene(view.findTable());
     }
     void handleFindTable(String seatsInput,boolean smoking){
         int numofseats;
@@ -91,7 +98,7 @@ public class Main extends Application {
             AlertBox.display("Invalid input",seatsInput + "is not a number");
             return;
         }
-        if (numofseats <13 && numofseats>3){
+        if (numofseats <13 && numofseats>1){
             boolean found = model.findTable(restaurant.getTables(),numofseats,smoking);
             if (found){
                 stage.setScene(view.menu());
@@ -105,11 +112,23 @@ public class Main extends Application {
     }
 
     private void orderDishes() {
+        stage.setScene(view.menu());
         return;
     }
 
-    void handleCancelButton(Stage stage) {
-        if (ConfirmBox.display("Cancel", "Are you sure you want to cancel?"))
+    void login(){
+        stage.setScene(view.login());
+        view.getNext().setOnAction(e->handleLoginButton(view.getInput().getText(),view.getPassField().getText()));
+        view.getBack().setOnAction(e->handleCloseButton());
+    }
+
+    void handleCloseButton() {
+        if (ConfirmBox.display("Close", "Are you sure you want to close?"))
+            try {
+                model.save(reservations, reservationsPath.getPath());
+            }catch (JAXBException e){
+                AlertBox.display("Error","Couldn't save reservation data");
+            }
             stage.close();
     }
 

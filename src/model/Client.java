@@ -1,10 +1,12 @@
 package model;
 
-import model.Data.Dish;
-import model.Data.Reservation;
-import model.Data.Table;
-import model.Data.Tables;
+import View.AlertBox;
+import model.Data.*;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import java.io.File;
 import java.util.List;
 
 public class Client implements Model {
@@ -12,7 +14,7 @@ public class Client implements Model {
     {
         boolean found = false;
         for (Table table : tables.getTables()){
-            if (table.getNumber_of_seats() == seats){
+            if (table.getNumber_of_seats() == seats || table.getNumber_of_seats() == seats+1 || table.getNumber_of_seats() == seats+2){
                 if (table.isSmoking() == smoking){
                     found = true;
                 }
@@ -32,5 +34,15 @@ public class Client implements Model {
         reservation.setTablenumber(tablenumber);
         reservation.setOrderedDishes(orderedDishes);
         return reservation;
+    }
+    public void save(Reservations reservations,String path) throws JAXBException {
+        JAXBContext parser = JAXBContext.newInstance();
+        try {
+            Marshaller marshaller = parser.createMarshaller();
+            marshaller.marshal(reservations,new File(path));
+        }catch (JAXBException e){
+            AlertBox.display("Error","Couldn't save reservation data");
+        }
+
     }
 }

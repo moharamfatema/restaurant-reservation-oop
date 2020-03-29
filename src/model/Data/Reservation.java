@@ -7,13 +7,13 @@ import java.util.List;
 @XmlRootElement(name = "reservation")
 public class Reservation {
     @XmlElement(name = "tablenumber")
-    int tablenumber;
+    private int tablenumber;
     @XmlElement(name = "orderedDishes")
-    List<Dish> orderedDishes;
+    private List<Dish> orderedDishes;
     @XmlElement(name = "bill")
-    double bill = 0;
+    private double bill = 0;
     @XmlElement(name = "name")
-    String name;
+    private String name;
 
     public List<Dish> getOrderedDishes() {
         return orderedDishes;

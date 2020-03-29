@@ -21,7 +21,7 @@ public interface Model {
     public Reservations loadReservations(String path) throws Exception;
 
     ObservableList<Reservation> getReservationList(Reservations reservations) throws Exception;
-    int getTotalMoneyEarned(Reservations reservations)throws Exception;
+    double getTotalMoneyEarned(Reservations reservations)throws Exception;
 
 
 }

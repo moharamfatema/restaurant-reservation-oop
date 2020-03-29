@@ -9,13 +9,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Table {
     @XmlElement(name="number")
-    int number;
+    private int number;
     @XmlElement(name="number_of_seats")
-    int number_of_seats;
+    private int number_of_seats;
     @XmlElement(name="smoking")
-    boolean smoking;
+    private boolean smoking;
     @XmlElement
-    boolean free;
+    private boolean free;
 
     public boolean isFree() {
         return free;

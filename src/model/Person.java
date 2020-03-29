@@ -17,7 +17,7 @@ public class Person implements Model{
     }
 
     @Override
-    public int getTotalMoneyEarned(Reservations reservations) throws Exception {
+    public double getTotalMoneyEarned(Reservations reservations) throws Exception {
         ErrorClass.accessError();
         return 0;
     }

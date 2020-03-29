@@ -1,22 +1,25 @@
 package model.Data;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
 @XmlRootElement(name = "reservation")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Reservation {
     @XmlElement(name = "tablenumber")
     private int tablenumber;
-    @XmlElement(name = "orderedDishes")
-    private List<Dish> orderedDishes;
+    @XmlElement(name = "dish")
+    private List<Dish> dishes;
     @XmlElement(name = "bill")
     private double bill = 0;
     @XmlElement(name = "name")
     private String name;
 
-    public List<Dish> getOrderedDishes() {
-        return orderedDishes;
+    public List<Dish> getDishes() {
+        return dishes;
     }
 
     public double getBill() {
@@ -31,8 +34,8 @@ public class Reservation {
         this.tablenumber = tablenumber;
     }
 
-    public void setOrderedDishes(List<Dish> orderedDishes) {
-        this.orderedDishes = orderedDishes;
+    public void setDishes(List<Dish> dishes) {
+        this.dishes = dishes;
     }
 
     public void setBill(double bill) {

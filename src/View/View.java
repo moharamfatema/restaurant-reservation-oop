@@ -23,7 +23,7 @@ public class View {
 
     private Label label1;
     private Label label2;
-    private Label billLabel = new Label("Bill = 0 L.E.");
+    private Label billLabel;
 
     private Button next;
     private Button add;
@@ -98,6 +98,8 @@ public class View {
 
         delete = new Button("Delete");
         GridPane.setConstraints(delete,1,2);
+
+        billLabel = new Label("Bill = 0.0 L.E.");
 
         next =new Button("Confirm Order");
 

@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Person implements Model{
     public Reservations loadReservations(String path) throws Exception {
-        JAXBContext parser = JAXBContext.newInstance();
+        JAXBContext parser = JAXBContext.newInstance(Reservations.class);
         Unmarshaller unmarshaller = parser.createUnmarshaller();
         Reservations reservations = (Reservations) unmarshaller.unmarshal(new File(path));
         return reservations;
@@ -47,7 +47,7 @@ public class Person implements Model{
     }
 
     @Override
-    public void save(Reservations reservations, String path) throws Exception {
+    public void save(Reservations reservations,String reservationsPath,Restaurant restaurant,String restaurantPath) throws Exception {
         ErrorClass.accessError();
     }
 }

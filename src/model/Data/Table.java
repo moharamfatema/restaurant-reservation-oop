@@ -17,6 +17,20 @@ public class Table {
     @XmlElement
     private boolean free;
 
+    public Table() {
+        this.number = 0;
+        this.number_of_seats = 0;
+        this.smoking = false;
+        this.free = true;
+    }
+
+    public Table(int number, int number_of_seats, boolean smoking, boolean free) {
+        this.number = number;
+        this.number_of_seats = number_of_seats;
+        this.smoking = smoking;
+        this.free = free;
+    }
+
     public boolean isFree() {
         return free;
     }

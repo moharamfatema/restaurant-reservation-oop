@@ -41,11 +41,6 @@ public class Main extends Application {
         stage = primaryStage;
         stage.setTitle("Welcome to our restaurant");
         initializeXML();
-        try {
-            reservations = model.loadReservations(reservationsPath.getPath());
-        }catch (Exception e){
-            reservations = new Reservations();
-        }
         view.getLogout().setOnAction(e->{
             login();
         });
@@ -53,9 +48,7 @@ public class Main extends Application {
             e.consume();
             handleCloseButton();
         });
-        //login();
-        model = new Client();
-        orderDishes();
+        login();
         stage.show();
     }
 
@@ -77,10 +70,11 @@ public class Main extends Application {
                 if (!password.equals(currentUser.getPassword())){
                     AlertBox.display("Wrong password","The password you entered is incorrect.");
                     return;
-                }else
-                    switch (currentUser.getRole()){
+                }else {
+                    switch (currentUser.getRole()) {
                         case "Manager":
-                            //View.dashboard = ManagerWindow.display(currentUser);
+                            model = new Manager();
+                            stage.setScene(view.showReservations());
                             break;
                         case "Cooker":
 
@@ -90,8 +84,15 @@ public class Main extends Application {
                             break;
                         case "Client":
                             model = new Client();
-                            view.getNext().setOnAction(e->findTable());
+                            findTable();
                     }
+                    try {
+                        reservations = model.loadReservations(reservationsPath.getPath());
+                    }catch (Exception e) {
+                        reservations = new Reservations();
+                        reservations.setTotalmoney(0);
+                    }
+                }
                 return;
             }
         }AlertBox.display("User not found","You entered a wrong username");
@@ -142,14 +143,16 @@ public class Main extends Application {
 
     private void handleConfirmOrder(ObservableList<Dish> dishes,double bill) {
         try {
-            reservations.add(model.addReservation(currentUser.getName(),bill,table,dishes));
-            model.save(reservations,reservationsPath.getPath());
+            reservations.add(model.addReservation(currentUser.getName(),bill,table,dishes),bill);
+            model.save(reservations,reservationsPath.getPath(),restaurant,inputpath.getPath());
+            AlertBox.display("SUCCESS","Order placed successfully.");
+            findTable();
         } catch (Exception e) {
             ErrorClass.accessError();
         }
     }
 
-    private void handleAddDish(TableView tableView,Dish value, String text) {
+    private void handleAddDish(TableView<Dish> tableView,Dish value, String text) {
         Dish dish = new Dish();
         dish.setName(value.getName());
         dish.setType(value.getType());
@@ -166,33 +169,34 @@ public class Main extends Application {
     private void handleDeleteDish()
     {
         try {
-            view.getTableView().getSelectionModel().getSelectedItems().forEach(view.getTableView().getItems()::remove);
+            view.getTableView().getItems().remove(view.getTableView().getSelectionModel().getSelectedItem());
             updateBill(view.getTableView());
         }catch (Exception ex){
             view.getTableView().getItems().removeAll();
             bill = 0;
+            view.getBillLabel().setText("Bill = 0 L.E.");
         }
     }
 
     void updateBill(TableView<Dish> table){
-        List<Dish> dishes = table.getSelectionModel().getSelectedItems();
+        List<Dish> dishes = table.getItems();
         bill = 0;
         double unitPrice = 0;
         for (Dish x: dishes){
             switch (x.getType()){
                 case "main_course":
-                    unitPrice = 15*x.getPrice()/100;
+                    unitPrice = 15*x.getPrice()/100 + x.getPrice();
                     break;
                 case "appetizer":
-                    unitPrice = 10*x.getPrice()/100;
+                    unitPrice = 10*x.getPrice()/100 + x.getPrice();
                     break;
                 case "desert":
-                    unitPrice = 20*x.getPrice()/100;
+                    unitPrice = 20*x.getPrice()/100 + x.getPrice();
                     break;
             }
-            bill += unitPrice;
+            bill += unitPrice*x.getQuantity();
         }
-
+        view.getBillLabel().setText("Bill = "+bill+" L.E.");
     }
 
     void login(){

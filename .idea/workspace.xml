@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3e0e33db-5b6e-43ee-a8d2-04f335fd42c1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Data/Reservation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Data/Reservation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Data/Reservations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Data/Reservations.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Data/Table.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Data/Table.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Manager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Model.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Person.java" afterDir="false" />
-    </list>
+    <list default="true" id="3e0e33db-5b6e-43ee-a8d2-04f335fd42c1" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

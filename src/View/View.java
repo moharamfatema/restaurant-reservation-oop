@@ -180,7 +180,7 @@ public class View {
         //hBox.setAlignment(Pos.BASELINE_CENTER);
 
         next = new Button("Close");
-
+        billLabel = new Label("Total money earned = 0.0 L.E.");
         TableColumn<Reservation,String> name = new TableColumn<>("Customer Name");
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
         name.setMinWidth(100);
@@ -194,16 +194,16 @@ public class View {
         tablenumber.setMinWidth(20);
 
         TableColumn<Reservation, List<Dish>> dishes = new TableColumn<>("Ordered Dishes");
-        dishes.setCellValueFactory(new PropertyValueFactory<>("ordereddishes"));
-        dishes.setMinWidth(20);
+        dishes.setCellValueFactory(new PropertyValueFactory<>("dishes"));
+        dishes.setMinWidth(500);
 
         tableView = new TableView();
         tableView.getColumns().addAll(name,bill,tablenumber,dishes);
 
-        hBox.getChildren().addAll(next,logout);
+        hBox.getChildren().addAll(billLabel,next,logout);
         vBox.getChildren().addAll(tableView,hBox);
 
-        return new Scene(vBox,500,500);
+        return new Scene(vBox,1000,500);
     }
 
     public Button getLogout() {

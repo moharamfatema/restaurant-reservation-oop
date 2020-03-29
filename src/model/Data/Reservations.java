@@ -1,5 +1,7 @@
 package model.Data;
 
+import javafx.collections.FXCollections;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -9,21 +11,32 @@ import java.util.List;
 @XmlRootElement(name = "reservations")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Reservations {
-    @XmlElement(name = "data")
-    private List<Reservation> data;
+    @XmlElement(name = "reservation")
+    private List<Reservation> reservations;
     @XmlElement(name = "totalmoney")
     private double totalmoney;
 
-    public List<Reservation> getData() {
-        return data;
+    public Reservations() {
+        reservations = FXCollections.observableArrayList();
+        totalmoney = 0;
     }
 
-    public void setData(List<Reservation> data) {
-        this.data = data;
+    public Reservations(List<Reservation> reservations, double totalmoney) {
+        this.reservations = reservations;
+        this.totalmoney = totalmoney;
     }
 
-    public void add(Reservation x){
-        data.add(x);
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
+    public void add(Reservation x,double bill){
+        reservations.add(x);
+        totalmoney+=bill;
     }
 
     public double getTotalmoney() {

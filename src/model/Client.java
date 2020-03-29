@@ -4,6 +4,8 @@ import View.AlertBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Data.*;
+import model.Data.Reservations;
+import model.Data.Reservation;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -20,7 +22,7 @@ public class Client extends Person {
         boolean found = false;
         for (Table table : tables.getTables()){
             if (table.getNumber_of_seats() == seats || table.getNumber_of_seats() == seats+1 || table.getNumber_of_seats() == seats+2){
-                if (table.isSmoking() == smoking){
+                if (table.isSmoking() == smoking && table.isFree()){
                     found = true;
                     return table;
                 }
@@ -36,16 +38,23 @@ public class Client extends Person {
         reservation.setName(name);
         reservation.setBill(bill);
         reservation.setTablenumber(table.getNumber());
-        reservation.setOrderedDishes(orderedDishes);
+        reservation.setDishes(orderedDishes);
         return reservation;
     }
-    public void save(Reservations reservations,String path) throws JAXBException {
-        JAXBContext parser = JAXBContext.newInstance();
+    public void save(Reservations reservations,String reservationsPath,Restaurant restaurant,String restaurantPath) throws JAXBException {
+        JAXBContext parser = JAXBContext.newInstance(Reservations.class);
         try {
             Marshaller marshaller = parser.createMarshaller();
-            marshaller.marshal(reservations,new File(path));
+            marshaller.marshal(reservations,new File(reservationsPath));
         }catch (JAXBException e){
             AlertBox.display("Error","Couldn't save reservation data");
+        }
+        JAXBContext restaurantParser = JAXBContext.newInstance(Restaurant.class);
+        try {
+            Marshaller restaurantParserMarshaller = restaurantParser.createMarshaller();
+            restaurantParserMarshaller.marshal(restaurant,new File(restaurantPath));
+        }catch (JAXBException e){
+            AlertBox.display("Error","Couldn't save restaurant data");
         }
 
     }
@@ -53,7 +62,7 @@ public class Client extends Person {
     @Override
     public ObservableList<Dish> getDishesOrdered(Reservation reservation) throws Exception {
         ObservableList<Dish> observableList = FXCollections.observableArrayList();
-        observableList.addAll(reservation.getOrderedDishes());
+        observableList.addAll(reservation.getDishes());
         return observableList;
     }
 }

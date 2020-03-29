@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><reservations><reservation><tablenumber>4</tablenumber><dish><name>Beef Steak</name><price>80.0</price><type>main_course</type><quantity>1</quantity></dish><bill>92.0</bill><name>John Doe</name></reservation><totalmoney>92.0</totalmoney></reservations>

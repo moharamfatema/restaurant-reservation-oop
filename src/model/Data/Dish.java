@@ -50,6 +50,9 @@ public class Dish {
     }
 
     public String toString(){
-        return String.format("%s   \tType: %s   \tPrice: %sL.E",name,type,String.valueOf(price));
+
+        String noQuantity = String.format("%s   \tType: %s   \tPrice: %sL.E",name,type,String.valueOf(price));
+        String wQuantity = String.format("%s   \tQuantity: %s",name,String.valueOf(quantity));
+        return (quantity == 0)? noQuantity:wQuantity;
     }
 }

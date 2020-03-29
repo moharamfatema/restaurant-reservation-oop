@@ -10,6 +10,7 @@
 import javafx.application.Application;
 import javafx.beans.binding.ObjectBinding;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import model.*;
@@ -74,7 +75,8 @@ public class Main extends Application {
                     switch (currentUser.getRole()) {
                         case "Manager":
                             model = new Manager();
-                            stage.setScene(view.showReservations());
+                            loadData();
+                            showReservations();
                             break;
                         case "Cooker":
 
@@ -84,19 +86,23 @@ public class Main extends Application {
                             break;
                         case "Client":
                             model = new Client();
+                            loadData();
                             findTable();
-                    }
-                    try {
-                        reservations = model.loadReservations(reservationsPath.getPath());
-                    }catch (Exception e) {
-                        reservations = new Reservations();
-                        reservations.setTotalmoney(0);
                     }
                 }
                 return;
             }
         }AlertBox.display("User not found","You entered a wrong username");
     }
+    void loadData(){
+        try {
+            reservations = model.loadReservations(reservationsPath.getPath());
+        }catch (Exception e) {
+            reservations = new Reservations();
+            reservations.setTotalmoney(0);
+        }
+    }
+    /*Client handling*/
     void findTable(){
         stage.setScene(view.findTable());
         view.getNext().setOnAction(e-> handleFindTable(view.getInput().getText(),view.getCheckBox().isSelected()));
@@ -208,6 +214,24 @@ public class Main extends Application {
     void handleCloseButton() {
         if (ConfirmBox.display("Close", "Are you sure you want to close?"))
             stage.close();
+    }
+
+    /*Manager handling*/
+
+    void showReservations(){
+        stage.setScene(view.showReservations());
+        view.getNext().setOnAction(e->handleCloseButton());
+
+        try {
+            view.getTableView().getItems().addAll(model.getReservationList(reservations));
+            //TODO: quantity not showing + they look bad
+            bill = model.getTotalMoneyEarned(reservations);
+            view.getBillLabel().setText("Total money earned = "+ bill+" L.E.");
+        } catch (Exception e) {
+            ErrorClass.loadError();
+        }
+
+
     }
 
     public static void main(String[] args) throws JAXBException {launch(args);}

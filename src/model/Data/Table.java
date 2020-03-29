@@ -14,6 +14,16 @@ public class Table {
     int number_of_seats;
     @XmlElement(name="smoking")
     boolean smoking;
+    @XmlElement
+    boolean free;
+
+    public boolean isFree() {
+        return free;
+    }
+
+    public void setFree(boolean free) {
+        this.free = free;
+    }
 
     public int getNumber() {
         return number;

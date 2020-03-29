@@ -4,10 +4,13 @@
 *
 * Author 2: Nourhan Waleed
 * ID: 6609
-* */
+*/
 
 
 import javafx.application.Application;
+import javafx.beans.binding.ObjectBinding;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import model.*;
 import model.Data.*;
@@ -15,16 +18,19 @@ import View.*;
 
 import javax.xml.bind.*;
 import java.io.File;
+import java.util.List;
 
 import static javax.xml.bind.JAXBContext.newInstance;
 
 /*This is the controller*/
 public class Main extends Application {
     Restaurant restaurant;
-    Reservations reservations = new Reservations();
+    Reservations reservations;
     User currentUser;
     Stage stage;
-    Model model;
+    Person model;
+    Table table;
+    double bill;
     View view = new View();
 
     Files inputpath = Files.INPUT;
@@ -33,18 +39,23 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         stage = primaryStage;
+        stage.setTitle("Welcome to our restaurant");
         initializeXML();
+        try {
+            reservations = model.loadReservations(reservationsPath.getPath());
+        }catch (Exception e){
+            reservations = new Reservations();
+        }
         view.getLogout().setOnAction(e->{
-            try {
-                model.save(reservations, reservationsPath.getPath());
-            } catch (JAXBException ex) {
-                AlertBox.display("Error","Couldn't save reservation data.");
-            }
             login();
         });
-        stage.setOnCloseRequest(e->handleCloseButton());
+        stage.setOnCloseRequest(e->{
+            e.consume();
+            handleCloseButton();
+        });
         //login();
-        stage.setScene(view.menu());
+        model = new Client();
+        orderDishes();
         stage.show();
     }
 
@@ -86,9 +97,9 @@ public class Main extends Application {
         }AlertBox.display("User not found","You entered a wrong username");
     }
     void findTable(){
+        stage.setScene(view.findTable());
         view.getNext().setOnAction(e-> handleFindTable(view.getInput().getText(),view.getCheckBox().isSelected()));
         view.getBack().setOnAction(e->login());
-        stage.setScene(view.findTable());
     }
     void handleFindTable(String seatsInput,boolean smoking){
         int numofseats;
@@ -99,9 +110,15 @@ public class Main extends Application {
             return;
         }
         if (numofseats <13 && numofseats>1){
-            boolean found = model.findTable(restaurant.getTables(),numofseats,smoking);
+            boolean found;
+            try {
+                table = model.findTable(restaurant.getTables(),numofseats,smoking);
+                if (table.getNumber() == 0)
+                    found = false;
+                else
+                    found = true;
+            }catch (Exception e){found = false;}
             if (found){
-                stage.setScene(view.menu());
                 orderDishes();
             }
             else
@@ -113,7 +130,69 @@ public class Main extends Application {
 
     private void orderDishes() {
         stage.setScene(view.menu());
-        return;
+
+        view.getChoiceBox().getItems().addAll(restaurant.getDishes().getDishes());
+        view.getBillLabel().setText("Bill = "+bill+" L.E.");
+        view.getDelete().setOnAction(e->handleDeleteDish());
+        view.getAdd().setOnAction(e->handleAddDish(view.getTableView(),view.getChoiceBox().getValue(),view.getInput().getText()));
+
+        view.getBack().setOnAction(e->findTable());
+        view.getNext().setOnAction(e->handleConfirmOrder(view.getTableView().getItems(),bill));
+    }
+
+    private void handleConfirmOrder(ObservableList<Dish> dishes,double bill) {
+        try {
+            reservations.add(model.addReservation(currentUser.getName(),bill,table,dishes));
+            model.save(reservations,reservationsPath.getPath());
+        } catch (Exception e) {
+            ErrorClass.accessError();
+        }
+    }
+
+    private void handleAddDish(TableView tableView,Dish value, String text) {
+        Dish dish = new Dish();
+        dish.setName(value.getName());
+        dish.setType(value.getType());
+        dish.setPrice(value.getPrice());
+        try {
+            int quantity = Integer.parseInt(text);
+            dish.setQuantity(quantity);
+            tableView.getItems().add(dish);
+            updateBill(tableView);
+        }catch (NumberFormatException e){
+            ErrorClass.userInputError();
+        }
+    }
+    private void handleDeleteDish()
+    {
+        try {
+            view.getTableView().getSelectionModel().getSelectedItems().forEach(view.getTableView().getItems()::remove);
+            updateBill(view.getTableView());
+        }catch (Exception ex){
+            view.getTableView().getItems().removeAll();
+            bill = 0;
+        }
+    }
+
+    void updateBill(TableView<Dish> table){
+        List<Dish> dishes = table.getSelectionModel().getSelectedItems();
+        bill = 0;
+        double unitPrice = 0;
+        for (Dish x: dishes){
+            switch (x.getType()){
+                case "main_course":
+                    unitPrice = 15*x.getPrice()/100;
+                    break;
+                case "appetizer":
+                    unitPrice = 10*x.getPrice()/100;
+                    break;
+                case "desert":
+                    unitPrice = 20*x.getPrice()/100;
+                    break;
+            }
+            bill += unitPrice;
+        }
+
     }
 
     void login(){
@@ -124,11 +203,6 @@ public class Main extends Application {
 
     void handleCloseButton() {
         if (ConfirmBox.display("Close", "Are you sure you want to close?"))
-            try {
-                model.save(reservations, reservationsPath.getPath());
-            }catch (JAXBException e){
-                AlertBox.display("Error","Couldn't save reservation data");
-            }
             stage.close();
     }
 

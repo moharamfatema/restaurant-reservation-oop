@@ -23,7 +23,7 @@ public class View {
 
     private Label label1;
     private Label label2;
-    private Label billLabel = new Label("Bill = 0 L.E");
+    private Label billLabel = new Label("Bill = 0 L.E.");
 
     private Button next;
     private Button add;
@@ -66,7 +66,6 @@ public class View {
     }
 
     public Scene menu(){
-        //TODO:Implement
         pane = new GridPane();
         pane.setPadding(new Insets(10,10,10,10));
         pane.setHgap(20);
@@ -75,6 +74,10 @@ public class View {
         vBox = new VBox();
         vBox.setPadding(new Insets(10,10,10,10));
         vBox.setSpacing(10);
+
+        hBox = new HBox();
+        hBox.setPadding(new Insets(10,10,10,10));
+        hBox.setSpacing(50);
 
         label1 = new Label("Add a dish: ");
         GridPane.setConstraints(label1,0,0);
@@ -97,9 +100,10 @@ public class View {
         GridPane.setConstraints(delete,1,2);
 
         next =new Button("Confirm Order");
-        GridPane.setConstraints(next,2,2);
 
-        tableView = new TableView<>();
+        back = new Button("Go Back");
+
+        tableView = new TableView<Dish>();
         tableView.setMinWidth(100);
 
          TableColumn<Dish,String> column4;
@@ -129,8 +133,9 @@ public class View {
 
         tableView.getColumns().addAll(column1, column2, doubleColumn3, column4);
 
-        pane.getChildren().addAll(label1,choiceBox,label2,input,add,delete,next);
-        vBox.getChildren().addAll(pane,tableView,billLabel);
+        pane.getChildren().addAll(label1,choiceBox,label2,input,add,delete);
+        hBox.getChildren().addAll(billLabel,back,next,logout);
+        vBox.getChildren().addAll(pane,tableView,hBox);
 
         return new Scene(vBox,500,500);
     }
@@ -311,5 +316,12 @@ public class View {
         this.back = back;
     }
 
+    public Label getBillLabel() {
+        return billLabel;
+    }
+
+    public void setBillLabel(Label billLabel) {
+        this.billLabel = billLabel;
+    }
 }
 

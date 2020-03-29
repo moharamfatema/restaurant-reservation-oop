@@ -1,6 +1,8 @@
 package model;
 
 import View.AlertBox;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import model.Data.*;
 
 import javax.xml.bind.JAXBContext;
@@ -9,29 +11,31 @@ import javax.xml.bind.Marshaller;
 import java.io.File;
 import java.util.List;
 
-public class Client implements Model {
-    public boolean findTable(Tables tables,int seats, boolean smoking)
+public class Client extends Person {
+
+    public Table findTable(Tables tables, int seats, boolean smoking)
     {
+        Table foundTable = new Table();
+        foundTable.setNumber(0);
         boolean found = false;
         for (Table table : tables.getTables()){
             if (table.getNumber_of_seats() == seats || table.getNumber_of_seats() == seats+1 || table.getNumber_of_seats() == seats+2){
                 if (table.isSmoking() == smoking){
                     found = true;
+                    return table;
                 }
             }
         }
-        return found;
+        return foundTable;
     }
-    public void order(List<Dish> dishList, List<Dish> allDishes)
-    {
-        allDishes.addAll(dishList);
-    }
-    public Reservation addReservation(String name,double bill,int tablenumber,List<Dish> orderedDishes)
+
+    public Reservation addReservation(String name, double bill, Table table, List<Dish> orderedDishes)
     {
         Reservation reservation = new Reservation();
+        table.setFree(false);
         reservation.setName(name);
         reservation.setBill(bill);
-        reservation.setTablenumber(tablenumber);
+        reservation.setTablenumber(table.getNumber());
         reservation.setOrderedDishes(orderedDishes);
         return reservation;
     }
@@ -44,5 +48,12 @@ public class Client implements Model {
             AlertBox.display("Error","Couldn't save reservation data");
         }
 
+    }
+
+    @Override
+    public ObservableList<Dish> getDishesOrdered(Reservation reservation) throws Exception {
+        ObservableList<Dish> observableList = FXCollections.observableArrayList();
+        observableList.addAll(reservation.getOrderedDishes());
+        return observableList;
     }
 }

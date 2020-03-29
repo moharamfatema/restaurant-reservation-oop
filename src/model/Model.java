@@ -1,23 +1,27 @@
 package model;
 
+import javafx.collections.ObservableList;
 import model.Data.*;
 
-import javax.xml.bind.JAXBException;
 import java.util.List;
 
 public interface Model {
 
     /*Client methods*/
-    boolean findTable(Tables tables,int seats,boolean smoking);
-    void order(List<Dish> dishList,List<Dish> allDishes);
-    Reservation addReservation(String name,double bill,int tablenumber,List<Dish> orderedDishes);
-    void save(Reservations reservations,String path) throws JAXBException;
+    Table findTable(Tables tables, int seats, boolean smoking) throws Exception;
+    ObservableList<Dish> getDishesOrdered(Reservation reservation)throws Exception;
+    Reservation addReservation(String name, double bill, Table table, List<Dish> orderedDishes) throws Exception;
+    void save(Reservations reservations,String path) throws Exception;
 
     /*Waiter methods*/
 
     /*Cook methods*/
 
     /*Manager methods*/
+    public Reservations loadReservations(String path) throws Exception;
+
+    ObservableList<Reservation> getReservationList(Reservations reservations) throws Exception;
+    int getTotalMoneyEarned(Reservations reservations)throws Exception;
 
 
 }

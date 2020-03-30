@@ -1,6 +1,5 @@
 package View;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -13,7 +12,6 @@ import model.Data.Reservation;
 import java.util.List;
 
 public class View {
-    private Scene scene;
     private GridPane pane;
     private HBox hBox;
     private VBox vBox;
@@ -177,7 +175,6 @@ public class View {
 
         hBox.setPadding(new Insets(10,10,10,10));
         hBox.setSpacing(20);
-        //hBox.setAlignment(Pos.BASELINE_CENTER);
 
         next = new Button("Close");
         billLabel = new Label("Total money earned = 0.0 L.E.");
@@ -197,7 +194,7 @@ public class View {
         dishes.setCellValueFactory(new PropertyValueFactory<>("dishes"));
         dishes.setMinWidth(500);
 
-        tableView = new TableView();
+        tableView = new TableView<Reservation>();
         tableView.getColumns().addAll(name,bill,tablenumber,dishes);
 
         hBox.getChildren().addAll(billLabel,next,logout);
@@ -210,120 +207,45 @@ public class View {
         return logout;
     }
 
-    public void setLogout(Button logout) {
-        this.logout = logout;
-    }
-
-    public Scene getScene() {
-        return scene;
-    }
-
-    public void setScene(Scene scene) {
-        this.scene = scene;
-    }
-
-    public GridPane getPane() {
-        return pane;
-    }
-
-    public void setPane(GridPane pane) {
-        this.pane = pane;
-    }
-
-    public Label getLabel1() {
-        return label1;
-    }
-
-    public void setLabel1(Label label1) {
-        this.label1 = label1;
-    }
-
-    public Label getLabel2() {
-        return label2;
-    }
-
-    public void setLabel2(Label label2) {
-        this.label2 = label2;
-    }
-
     public TextField getInput() {
         return input;
-    }
-
-    public void setInput(TextField input) {
-        this.input = input;
     }
 
     public PasswordField getPassField() {
         return passField;
     }
 
-    public void setPassField(PasswordField passField) {
-        this.passField = passField;
-    }
-
     public Button getNext() {
         return next;
-    }
-
-    public void setNext(Button next) {
-        this.next = next;
     }
 
     public Button getAdd() {
         return add;
     }
 
-    public void setAdd(Button add) {
-        this.add = add;
-    }
-
     public Button getDelete() {
         return delete;
-    }
-
-    public void setDelete(Button delete) {
-        this.delete = delete;
     }
 
     public ChoiceBox<Dish> getChoiceBox() {
         return choiceBox;
     }
 
-    public void setChoiceBox(ChoiceBox<Dish> choiceBox) {
-        this.choiceBox = choiceBox;
-    }
-
     public CheckBox getCheckBox() {
         return checkBox;
-    }
-
-    public void setCheckBox(CheckBox checkBox) {
-        this.checkBox = checkBox;
     }
 
     public TableView getTableView() {
         return tableView;
     }
 
-    public void setTableView(TableView tableView) {
-        this.tableView = tableView;
-    }
-
     public Button getBack() {
         return back;
-    }
-
-    public void setBack(Button back) {
-        this.back = back;
     }
 
     public Label getBillLabel() {
         return billLabel;
     }
 
-    public void setBillLabel(Label billLabel) {
-        this.billLabel = billLabel;
-    }
 }
 

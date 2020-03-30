@@ -71,7 +71,7 @@ public class Main extends Application {
                     return;
                 }else {
                     switch (currentUser.getRole()) {
-                        case "Employee":
+                        case "Manager":
                             model = new Employee();
                             loadData();
                             showReservations();

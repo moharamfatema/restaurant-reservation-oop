@@ -17,7 +17,7 @@ public interface Model {
 
     /*Cook methods*/
 
-    /*Manager methods*/
+    /*Employee methods*/
     public Reservations loadReservations(String path) throws Exception;
 
     ObservableList<Reservation> getReservationList(Reservations reservations) throws Exception;

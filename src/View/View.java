@@ -202,6 +202,57 @@ public class View {
 
         return new Scene(vBox,1000,500);
     }
+    public Scene showReservationsforWaiter(){
+        vBox = new VBox();
+        hBox = new HBox();
+
+        vBox.setPadding(new Insets(10,10,10,10));
+        vBox.setSpacing(10);
+
+        hBox.setPadding(new Insets(10,10,10,10));
+        hBox.setSpacing(20);
+        //hBox.setAlignment(Pos.BASELINE_CENTER);
+
+
+        TableColumn<Reservation,String> name = new TableColumn<>("Customer Name");
+        name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        name.setMinWidth(100);
+        TableColumn<Reservation,Integer> tablenumber = new TableColumn<>("Table Number");
+        tablenumber.setCellValueFactory(new PropertyValueFactory<>("tablenumber"));
+        tablenumber.setMinWidth(100);
+        tableView = new TableView<Reservation>();
+        tableView.getColumns().addAll(name,tablenumber);
+
+        hBox.getChildren().add(logout);
+        vBox.getChildren().addAll(tableView,hBox);
+
+        return new Scene(vBox,500,500);
+
+    }
+    public Scene showOrdersforCook(){
+        vBox = new VBox();
+        hBox = new HBox();
+
+        vBox.setPadding(new Insets(10,10,10,10));
+        vBox.setSpacing(10);
+
+        hBox.setPadding(new Insets(10,10,10,10));
+        hBox.setSpacing(20);
+        //hBox.setAlignment(Pos.BASELINE_CENTER);
+
+        TableColumn<Reservation,Integer> tablenumber = new TableColumn<>("Table Number");
+        tablenumber.setCellValueFactory(new PropertyValueFactory<>("tablenumber"));
+        tablenumber.setMinWidth(20);
+        TableColumn<Reservation, List<Dish>> dishes = new TableColumn<>("Ordered Dishes");
+        dishes.setCellValueFactory(new PropertyValueFactory<>("dishes"));
+        dishes.setMinWidth(500);
+        tableView = new TableView<Reservation>();
+        tableView.getColumns().addAll(tablenumber,dishes);
+        hBox.getChildren().add(logout);
+        vBox.getChildren().addAll(tableView,hBox);
+
+        return new Scene(vBox,500,500);
+    }
 
     public Button getLogout() {
         return logout;

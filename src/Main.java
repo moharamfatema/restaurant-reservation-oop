@@ -8,9 +8,7 @@
 
 
 import javafx.application.Application;
-import javafx.beans.binding.ObjectBinding;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import model.*;
@@ -73,16 +71,19 @@ public class Main extends Application {
                     return;
                 }else {
                     switch (currentUser.getRole()) {
-                        case "Manager":
-                            model = new Manager();
+                        case "Employee":
+                            model = new Employee();
                             loadData();
                             showReservations();
                             break;
                         case "Cooker":
-
+                            model= new Employee();
+                            showOrdersforCook();
                             break;
                         case "Waiter":
-
+                             model= new Employee();
+                            loadData();
+                             showReservationsforWaiter();
                             break;
                         case "Client":
                             model = new Client();
@@ -216,7 +217,7 @@ public class Main extends Application {
             stage.close();
     }
 
-    /*Manager handling*/
+    /*Employee handling*/
 
     void showReservations(){
         stage.setScene(view.showReservations());
@@ -229,10 +230,26 @@ public class Main extends Application {
             view.getBillLabel().setText("Total money earned = "+ bill+" L.E.");
         } catch (Exception e) {
             ErrorClass.loadError();
+        }}
+//Waiter handling
+        void showReservationsforWaiter(){
+            stage.setScene(view.showReservationsforWaiter());
+
+            try {
+                view.getTableView().getItems().addAll(model.getReservationList(reservations));
+            } catch (Exception e) {
+                ErrorClass.loadError();
+            }
         }
+        void showOrdersforCook() {
+            stage.setScene(view.showOrdersforCook());
+            try {
+                view.getTableView().getItems().addAll(model.getReservationList(reservations));
+            } catch (Exception e) {
+                ErrorClass.loadError();
+            }
 
-
-    }
+        }
 
     public static void main(String[] args) throws JAXBException {launch(args);}
 }

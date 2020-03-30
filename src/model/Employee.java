@@ -6,7 +6,7 @@ import model.Data.Dish;
 import model.Data.Reservation;
 import model.Data.Reservations;
 
-public class Manager extends Person{
+public class Employee extends Person{
 
 
     @Override
